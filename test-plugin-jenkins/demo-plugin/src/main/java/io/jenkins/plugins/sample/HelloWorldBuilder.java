@@ -13,8 +13,6 @@ import hudson.util.FormValidation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import jenkins.tasks.SimpleBuildStep;
-import main.java.io.jenkins.plugins.sample.HelloWorldAction;
-
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
@@ -44,8 +42,10 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
     }
 
     @Override
-    public void perform(Run<?, ?> run, FilePath workspace, EnvVars env, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
+    public void perform(Run<?, ?> run, FilePath workspace, EnvVars env, Launcher launcher, TaskListener listener)
+            throws InterruptedException, IOException {
         run.addAction(new HelloWorldAction(name));
+        
         if (useFrench) {
             listener.getLogger().println("Bonjour, " + name + "!");
         } else {

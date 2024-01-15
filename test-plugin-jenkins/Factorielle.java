@@ -12,4 +12,3 @@ public class Factorielle {
         System.out.println(calcFactorielle(args[0]));
     }
 }
-

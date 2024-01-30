@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 21
+Specification-Title: TODO Plugin
+Specification-Version: 1.0
+Implementation-Title: TODO Plugin
+Implementation-Version: 1.0-SNAPSHOT
+Group-Id: io.jenkins.plugins
+Artifact-Id: demo
+Short-Name: demo
+Long-Name: TODO Plugin
+Url: https://github.com/jenkinsci/demo-plugin
+Plugin-Version: 1.0-SNAPSHOT (private-1258210a-patrickbernard)
+Hudson-Version: 2.414.3
+Jenkins-Version: 2.414.3
+Plugin-Dependencies: structs:325.vcb_307d2a_2782
+Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/license/mit/
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/demo-plugin
+Plugin-ScmTag: HEAD
+Plugin-ScmUrl: https://github.com/jenkinsci/demo-plugin
+Plugin-GitHash: 1258210a3c6b4aa1e0b56400b8301884d052ff0a
+Implementation-Build: 1258210a3c6b4aa1e0b56400b8301884d052ff0a
+

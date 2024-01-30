@@ -1,0 +1,101 @@
+=== Starting testBuild(io.jenkins.plugins.sample.HelloWorldBuilderTest)
+   0.218 [id=28]	INFO	o.jvnet.hudson.test.WarExploder#explode: Picking up existing exploded jenkins.war at /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/jenkins-for-test
+   0.682 [id=28]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer: Running on http://localhost:49523/jenkins/
+   0.954 [id=42]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   1.715 [id=41]	INFO	hudson.PluginManager#considerDetachedPlugin: Loading a detached plugin as a dependency: /var/folders/ws/0tdbtlfd7r56xfqy510dc6880000gn/T/jenkins15702751414691727545/plugins/javax-activation-api.jpi
+   1.747 [id=41]	INFO	hudson.PluginManager#considerDetachedPlugin: Loading a detached plugin as a dependency: /var/folders/ws/0tdbtlfd7r56xfqy510dc6880000gn/T/jenkins15702751414691727545/plugins/javax-mail-api.jpi
+   2.262 [id=47]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   2.280 [id=43]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h2849074130924968989/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   3.861 [id=42]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   3.875 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   3.877 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   6.099 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   6.099 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   6.100 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   6.101 [id=46]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   6.284 [id=42]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+   7.434 [id=28]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+   7.497 [id=28]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+   7.592 [id=28]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h2849074130924968989
+=== Starting testConfigRoundtrip(io.jenkins.plugins.sample.HelloWorldBuilderTest)
+   0.025 [id=80]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer: Running on http://localhost:49527/jenkins/
+   0.053 [id=94]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   0.059 [id=94]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   0.062 [id=94]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h2423242750617566672/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   0.277 [id=98]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   0.280 [id=99]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   0.281 [id=96]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   1.729 [id=95]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   1.729 [id=96]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   1.730 [id=98]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   1.730 [id=97]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   1.750 [id=97]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+   6.505 [id=80]	WARNING	o.h.DefaultCssErrorHandler#error: CSS error: 'http://localhost:49527/jenkins/static/7f36efb4/jsbundles/styles.css' [1:134087] Error in pseudo class or element. (Invalid token ".". Was expecting one of: <S>, <NUMBER>, <IDENT>, <STRING>, "-", "+", <DIMENSION>.)
+   6.506 [id=80]	WARNING	o.h.DefaultCssErrorHandler#warning: CSS warning: 'http://localhost:49527/jenkins/static/7f36efb4/jsbundles/styles.css' [1:134087] Ignoring the whole rule.
+  12.006 [id=80]	WARNING	o.h.DefaultCssErrorHandler#error: CSS error: 'http://localhost:49527/jenkins/static/7f36efb4/jsbundles/styles.css' [1:134087] Error in pseudo class or element. (Invalid token ".". Was expecting one of: <S>, <NUMBER>, <IDENT>, <STRING>, "-", "+", <DIMENSION>.)
+  12.007 [id=80]	WARNING	o.h.DefaultCssErrorHandler#warning: CSS warning: 'http://localhost:49527/jenkins/static/7f36efb4/jsbundles/styles.css' [1:134087] Ignoring the whole rule.
+  12.957 [id=80]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+  12.980 [id=80]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+  13.124 [id=80]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h2423242750617566672
+=== Starting testConfigRoundtripFrench(io.jenkins.plugins.sample.HelloWorldBuilderTest)
+   0.016 [id=137]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer: Running on http://localhost:49531/jenkins/
+   0.040 [id=150]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   0.041 [id=151]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   0.043 [id=153]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h5924130672970227751/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   0.161 [id=149]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   0.162 [id=154]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   0.165 [id=155]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   2.116 [id=151]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   2.116 [id=154]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   2.116 [id=155]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   2.117 [id=150]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   2.132 [id=152]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+   3.977 [id=137]	WARNING	o.h.DefaultCssErrorHandler#error: CSS error: 'http://localhost:49531/jenkins/static/1658deeb/jsbundles/styles.css' [1:134087] Error in pseudo class or element. (Invalid token ".". Was expecting one of: <S>, <NUMBER>, <IDENT>, <STRING>, "-", "+", <DIMENSION>.)
+   3.977 [id=137]	WARNING	o.h.DefaultCssErrorHandler#warning: CSS warning: 'http://localhost:49531/jenkins/static/1658deeb/jsbundles/styles.css' [1:134087] Ignoring the whole rule.
+   7.388 [id=137]	WARNING	o.h.DefaultCssErrorHandler#error: CSS error: 'http://localhost:49531/jenkins/static/1658deeb/jsbundles/styles.css' [1:134087] Error in pseudo class or element. (Invalid token ".". Was expecting one of: <S>, <NUMBER>, <IDENT>, <STRING>, "-", "+", <DIMENSION>.)
+   7.388 [id=137]	WARNING	o.h.DefaultCssErrorHandler#warning: CSS warning: 'http://localhost:49531/jenkins/static/1658deeb/jsbundles/styles.css' [1:134087] Ignoring the whole rule.
+   8.224 [id=137]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+   8.244 [id=137]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+   8.421 [id=137]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h5924130672970227751
+=== Starting testBuildFrench(io.jenkins.plugins.sample.HelloWorldBuilderTest)
+   0.029 [id=184]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer: Running on http://localhost:49535/jenkins/
+   0.057 [id=197]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   0.059 [id=196]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   0.060 [id=200]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h10038309741380025235/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   0.258 [id=197]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   0.261 [id=202]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   0.264 [id=200]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   2.530 [id=200]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   2.531 [id=200]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   2.531 [id=200]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   2.532 [id=200]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   2.549 [id=203]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+   3.862 [id=184]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+   3.882 [id=184]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+   4.052 [id=184]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h10038309741380025235
+=== Starting testScriptedPipeline(io.jenkins.plugins.sample.HelloWorldBuilderTest)
+   0.015 [id=224]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer: Running on http://localhost:49539/jenkins/
+   0.039 [id=237]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   0.041 [id=243]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   0.043 [id=238]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h11400698667179439268/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   0.151 [id=239]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   0.152 [id=237]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   0.153 [id=243]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   1.899 [id=240]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   1.900 [id=242]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   1.900 [id=236]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   1.900 [id=236]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   1.915 [id=238]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+   2.056 [id=224]	INFO	o.jvnet.hudson.test.JenkinsRule#waitOnline: Launching slave0…
+$ "/usr/local/Cellar/openjdk/21.0.1/libexec/openjdk.jdk/Contents/Home/bin/java"  -Djava.awt.headless=true -Xmx512m -XX:+PrintCommandLineFlags -jar "/Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/jenkins-for-test/WEB-INF/lib/remoting-3107.v665000b_51092.jar"
+-XX:ConcGCThreads=1 -XX:G1ConcRefinementThreads=4 -XX:GCDrainStackTargetSize=64 -XX:InitialHeapSize=134217728 -XX:MarkStackSize=4194304 -XX:MaxHeapSize=536870912 -XX:MinHeapSize=6815736 -XX:+PrintCommandLineFlags -XX:ReservedCodeCacheSize=251658240 -XX:+SegmentedCodeCache -XX:+UseCompressedOops -XX:+UseG1GC 
+<===[JENKINS REMOTING CAPACITY]===>   channel started
+Remoting version: 3107.v665000b_51092
+Launcher: SimpleCommandLauncher
+Communication Protocol: Standard in/out
+This is a Unix agent
+   3.533 [id=62]	INFO	o.j.h.test.SimpleCommandLauncher#launch: agent launched for slave0
+   3.534 [id=224]	INFO	o.jvnet.hudson.test.JenkinsRule#waitOnline: …finished launching slave0.
+   5.343 [id=224]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+   5.367 [id=224]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+   5.532 [id=224]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/patrickbernard/Documents/Projet-SI/test-plugin-jenkins/demo-plugin/target/tmp/j h11400698667179439268

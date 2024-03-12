@@ -1,0 +1,64 @@
+# Fichiers de configuration IDE
+/.idea/
+*.sublime-workspace
+
+# Dossier node_modules pour les projets Node.js
+/node_modules/
+
+# Dossier build
+/build/
+/dist/
+
+# Dossiers et fichiers souvent utilisés dans les environnements Python
+/__pycache__/
+*.py[cod]
+*.pyc
+
+# Fichiers de package et de lock
+*.jar
+*.war
+*.ear
+package-lock.json
+yarn.lock
+
+# Fichiers de log
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.seed
+
+# Dossiers et fichiers de virtualisation
+.Vagrant/
+*.vdi
+*.vbox
+*.vbox-prev
+
+# Dossiers et fichiers pour les environnements virtuels Python
+.venv
+env/
+venv/
+ENV/
+
+# Fichiers de base de données
+*.db
+*.sql
+*.sqlite
+
+# Fichiers de configuration de l'OS
+.DS_Store
+Thumbs.db
+
+# Dossiers et fichiers pour les projets Java
+/target/
+*.class
+
+# Autres fichiers et dossiers spécifiques à ignorer
+.sass-cache
+.cache
+tmp/
+*.tmp
+*.bak
+*.swp
+*.lock

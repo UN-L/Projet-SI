@@ -14,20 +14,22 @@
   <version>${revision}${changelist}</version>
   <packaging>hpi</packaging>
 
-  <name>TODO Plugin</name>
-  <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
+  <name>Energy Checker Plugin</name>
+  <url>https://github.com/UN-L/Projet-SI</url>
   <licenses>
     <license>
       <name>MIT License</name>
       <url>https://opensource.org/license/mit/</url>
     </license>
   </licenses>
+
   <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:https://github.com/${gitHubRepo}</connection>
     <developerConnection>scm:git:https://github.com/${gitHubRepo}</developerConnection>
     <tag>${scmTag}</tag>
     <url>https://github.com/${gitHubRepo}</url>
   </scm>
+  
   <properties>
     <revision>1.0</revision>
     <changelist>-SNAPSHOT</changelist>

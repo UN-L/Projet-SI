@@ -29,7 +29,6 @@
     <tag>${scmTag}</tag>
     <url>https://github.com/${gitHubRepo}</url>
   </scm>
-  
   <properties>
     <revision>1.0</revision>
     <changelist>-SNAPSHOT</changelist>

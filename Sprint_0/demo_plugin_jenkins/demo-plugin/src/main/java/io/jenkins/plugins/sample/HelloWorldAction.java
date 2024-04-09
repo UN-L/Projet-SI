@@ -33,15 +33,15 @@ public class HelloWorldAction implements RunAction2 {
 
     @Override
     public void onAttached(Run<?, ?> run) {
-        this.run = run; 
+        this.run = run;
     }
 
     @Override
     public void onLoad(Run<?, ?> run) {
-        this.run = run; 
+        this.run = run;
     }
 
-    public Run getRun() { 
+    public Run getRun() {
         return run;
     }
 }

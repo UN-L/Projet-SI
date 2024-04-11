@@ -20,7 +20,7 @@ public class EnergyAction implements Action {
     }
 
     @Override
-    public String getIconFileName() { return null; }
+    public String getIconFileName() {return null;}
 
     @Override
     public String getDisplayName() { return "Energy Monitoring"; }

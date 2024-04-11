@@ -14,15 +14,17 @@ import java.io.IOException;
 public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
 
     @Override
-    public void onInitialize(@NonNull Run<?, ?> run) {}
+    public void onInitialize(@NonNull Run<?, ?> run) {
+        run.addAction(new EnergyAction(System.currentTimeMillis(),lectureConsommation()));
 
-    @Override
-    public void onFinalized(@NonNull Run<?, ?> run) {}
+    }
 
     @Override
     public void onStarted(Run<?, ?> run, TaskListener listener) {
         listener.getLogger().println("Début de la surveillance de la consommation d'énergie. (onStarted)");
-        run.addAction(new EnergyAction(System.currentTimeMillis(),lectureConsommation()));
+        listener.getLogger().println("Temps à onInitialize()" + run.getAction(EnergyAction.class).getStartTime());
+        listener.getLogger().println(System.currentTimeMillis());
+        run.addAction(new ChartDisplay());
     }
 
     @Override
@@ -38,6 +40,10 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
             listener.getLogger().println("Consommation d'énergie pendant le build : " + energyConsumed + " Watts.");
         }
     }
+
+    @Override
+    public void onFinalized(@NonNull Run<?, ?> run) {}
+
 
     private long calculateEnergyConsumption(long startTime, long endTime, long startConsumption, long endConsumption) {
         long consumption = endConsumption - startConsumption;

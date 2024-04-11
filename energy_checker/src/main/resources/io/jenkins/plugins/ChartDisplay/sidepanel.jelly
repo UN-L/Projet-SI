@@ -1,0 +1,6 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+        <l:side-panel>
+                <l:task href="${rootURL}/${it.urlName}" icon="" title="ChartDisplay"/>
+        </l:side-panel>
+</j:jelly>

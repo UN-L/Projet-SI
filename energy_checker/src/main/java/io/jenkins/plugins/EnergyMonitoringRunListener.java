@@ -5,7 +5,6 @@ import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,14 +14,16 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
 
     @Override
     public void onInitialize(@NonNull Run<?, ?> run) {
-        run.addAction(new EnergyAction(System.currentTimeMillis(),lectureConsommation()));
-
+        run.addAction(new EnergyAction(System.currentTimeMillis(), lectureConsommation()));
     }
 
     @Override
     public void onStarted(Run<?, ?> run, TaskListener listener) {
+        super.onStarted(run, listener);
         listener.getLogger().println("Début de la surveillance de la consommation d'énergie. (onStarted)");
-        listener.getLogger().println("Temps à onInitialize()" + run.getAction(EnergyAction.class).getStartTime());
+        listener.getLogger()
+                .println("Temps à onInitialize()"
+                        + run.getAction(EnergyAction.class).getStartTime());
         listener.getLogger().println(System.currentTimeMillis());
         run.addAction(new ChartDisplay());
     }
@@ -44,15 +45,14 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
     @Override
     public void onFinalized(@NonNull Run<?, ?> run) {}
 
-
     private long calculateEnergyConsumption(long startTime, long endTime, long startConsumption, long endConsumption) {
         long consumption = endConsumption - startConsumption;
-        long duration = (endTime - startTime)/1000;
+        long duration = (endTime - startTime) / 1000;
         return consumption / duration / 1000000;
     }
 
     private long lectureConsommation() {
-        //String chemin = System.getProperty("user.home") + "/fichier_pour_lecture_jenkins/consumption.txt";
+        // String chemin = System.getProperty("user.home") + "/fichier_pour_lecture_jenkins/consumption.txt";
         String chemin = "/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0/energy_uj";
         try (BufferedReader lecteur = new BufferedReader(new FileReader(chemin))) {
             String ligne = lecteur.readLine();

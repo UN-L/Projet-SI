@@ -78,6 +78,10 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
       <artifactId>workflow-step-api</artifactId>
       <version>639.v6eca_cd8c04a_a_</version>

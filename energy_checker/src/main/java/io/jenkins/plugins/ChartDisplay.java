@@ -1,20 +1,26 @@
 package io.jenkins.plugins;
 
-import jenkins.model.RunAction2;
 import hudson.model.Run;
+import jenkins.model.RunAction2;
 
 public class ChartDisplay implements RunAction2 {
 
     private transient Run run;
 
     @Override
-    public String getIconFileName() {return null;}
+    public String getIconFileName() {
+        return null;
+    }
 
     @Override
-    public String getDisplayName() {return "Chart Display";}
+    public String getDisplayName() {
+        return "Chart Display";
+    }
 
     @Override
-    public String getUrlName() {return "chart";}
+    public String getUrlName() {
+        return "chart";
+    }
 
     @Override
     public void onAttached(Run<?, ?> run) {

@@ -25,7 +25,6 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
                 .println("Temps à onInitialize()"
                         + run.getAction(EnergyVariablesAction.class).getStartTime());
         listener.getLogger().println(System.currentTimeMillis());
-        run.addAction(new ChartDisplay());
     }
 
     @Override
@@ -40,6 +39,7 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
             long energyConsumed = calculateEnergyConsumption(startTime, endTime, startConsumption, endConsumption);
             action.setEnergyConsumed(energyConsumed);
             listener.getLogger().println("Consommation d'énergie pendant le build : " + energyConsumed + " Watts.");
+            run.addAction(new ChartDisplay());
         }
     }
 

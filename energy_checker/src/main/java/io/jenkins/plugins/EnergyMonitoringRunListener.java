@@ -5,16 +5,16 @@ import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 @Extension
 public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
 
     @Override
     public void onInitialize(@NonNull Run<?, ?> run) {
-        run.addAction(new EnergyAction(System.currentTimeMillis(), lectureConsommation()));
+        run.addAction(new EnergyVariablesAction(System.currentTimeMillis(), lectureConsommation()));
     }
 
     @Override
@@ -23,7 +23,7 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
         listener.getLogger().println("Début de la surveillance de la consommation d'énergie. (onStarted)");
         listener.getLogger()
                 .println("Temps à onInitialize()"
-                        + run.getAction(EnergyAction.class).getStartTime());
+                        + run.getAction(EnergyVariablesAction.class).getStartTime());
         listener.getLogger().println(System.currentTimeMillis());
         run.addAction(new ChartDisplay());
     }
@@ -31,13 +31,14 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
     @Override
     public void onCompleted(Run<?, ?> run, @NonNull TaskListener listener) {
         listener.getLogger().println("onCompleted() launched");
-        EnergyAction action = run.getAction(EnergyAction.class);
+        EnergyVariablesAction action = run.getAction(EnergyVariablesAction.class);
         if (action != null) {
             long startTime = action.getStartTime();
             long startConsumption = action.getStartConsumption();
             long endTime = System.currentTimeMillis();
             long endConsumption = lectureConsommation();
             long energyConsumed = calculateEnergyConsumption(startTime, endTime, startConsumption, endConsumption);
+            action.setEnergyConsumed(energyConsumed);
             listener.getLogger().println("Consommation d'énergie pendant le build : " + energyConsumed + " Watts.");
         }
     }
@@ -62,6 +63,6 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
         } catch (IOException e) {
             System.err.println("Erreur de lecture du fichier : " + e.getMessage());
         }
-        return 0;
+        return 15000;
     }
 }

@@ -6,10 +6,11 @@ import jenkins.model.RunAction2;
 public class ChartDisplay implements RunAction2 {
 
     private transient Run run;
+    private long dataToDisplay;
 
     @Override
     public String getIconFileName() {
-        return null;
+        return "/plugin/energy_checker/images/chart-histogram.png";
     }
 
     @Override
@@ -25,6 +26,10 @@ public class ChartDisplay implements RunAction2 {
     @Override
     public void onAttached(Run<?, ?> run) {
         this.run = run;
+        EnergyVariablesAction action = run.getAction(EnergyVariablesAction.class);
+        if (action != null) {
+            setDataToDisplay(action.getEnergyConsumed());
+        }
     }
 
     @Override
@@ -34,5 +39,13 @@ public class ChartDisplay implements RunAction2 {
 
     public Run getRun() {
         return run;
+    }
+
+    public void setDataToDisplay(long dataToDisplay) {
+        this.dataToDisplay = dataToDisplay;
+    }
+
+    public String getGraphDataAsJson() {
+        return "[" + dataToDisplay + "]";
     }
 }

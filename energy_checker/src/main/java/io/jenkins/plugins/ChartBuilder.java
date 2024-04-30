@@ -10,8 +10,14 @@ import hudson.tasks.Builder;
 import java.io.IOException;
 import jenkins.tasks.SimpleBuildStep;
 import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 public class ChartBuilder extends Builder implements SimpleBuildStep {
+
+    @DataBoundConstructor
+    public ChartBuilder() {
+        super();
+    }
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, EnvVars env, Launcher launcher, TaskListener listener)
@@ -27,7 +33,7 @@ public class ChartBuilder extends Builder implements SimpleBuildStep {
     }
     */
 
-    @Symbol("greet")
+    @Symbol("displayChart")
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
 

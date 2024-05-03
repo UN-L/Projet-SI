@@ -6,7 +6,7 @@ import jenkins.model.RunAction2;
 public class ChartDisplay implements RunAction2 {
 
     private transient Run run;
-    private long dataToDisplay;
+    private double dataToDisplay;
 
     @Override
     public String getIconFileName() {
@@ -41,7 +41,7 @@ public class ChartDisplay implements RunAction2 {
         return run;
     }
 
-    public void setDataToDisplay(long dataToDisplay) {
+    public void setDataToDisplay(double dataToDisplay) {
         this.dataToDisplay = dataToDisplay;
     }
 

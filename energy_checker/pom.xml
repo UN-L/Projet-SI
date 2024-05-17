@@ -47,6 +47,11 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+    <groupId>com.influxdb</groupId>
+    <artifactId>influxdb-client-java</artifactId>
+    <version>7.1.0</version>
+	  </dependency>
+      <dependency>
         <groupId>org.jenkins-ci.plugins.workflow</groupId>
         <artifactId>workflow-step-api</artifactId>
         <scope>import</scope>

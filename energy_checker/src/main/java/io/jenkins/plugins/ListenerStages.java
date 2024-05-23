@@ -8,13 +8,13 @@ import org.jenkinsci.plugins.workflow.graph.FlowNode;
 import java.util.logging.Logger;
 
 @Extension
-public class BuildGraphListener implements GraphListener {
+public class ListenerStages implements GraphListener {
 
-    private static final Logger LOGGER = Logger.getLogger(BuildGraphListener.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ListenerStages.class.getName());
 
     double startOfClass = System.currentTimeMillis();
 
-    public BuildGraphListener() {
+    public ListenerStages() {
         LOGGER.info("BuildGraphListener created");
         System.out.println("BuildGraphListener created");
     }

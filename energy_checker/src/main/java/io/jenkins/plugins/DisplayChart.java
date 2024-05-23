@@ -6,11 +6,12 @@ import jenkins.model.RunAction2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartDisplay implements RunAction2 {
+public class DisplayChart implements RunAction2 {
 
     private transient Run run;
     private double dataToDisplay;
-    private List<Double> dataToDisplayAll;
+    private List<Double> energyHistory;
+    private List<Double> powerHistory;
 
     @Override
     public String getIconFileName() {
@@ -30,13 +31,14 @@ public class ChartDisplay implements RunAction2 {
     @Override
     public void onAttached(Run<?, ?> run) {
         this.run = run;
-        EnergyVariablesAction action = run.getAction(EnergyVariablesAction.class);
-        ConsumptionsPreviousBuilds consumptions = run.getAction(ConsumptionsPreviousBuilds.class);
+        VariablesConsumptionAction action = run.getAction(VariablesConsumptionAction.class);
+        VariablesConsumptionsPreviousBuild consumptions = run.getAction(VariablesConsumptionsPreviousBuild.class);
         if (action != null) {
             setDataToDisplay(action.getEnergyConsumed());
         }
         if (consumptions != null) {
-            setDataToDisplayAll(consumptions.getEnergyConsumptions());
+            setEnergyHistory(consumptions.getEnergyConsumptions());
+            setPowerHistory(consumptions.getPowerUsages());
         }
     }
 
@@ -53,21 +55,25 @@ public class ChartDisplay implements RunAction2 {
         this.dataToDisplay = dataToDisplay;
     }
 
-    public void setDataToDisplayAll(List<Double> dataToDisplayAll) {
-        this.dataToDisplayAll = dataToDisplayAll;
+    public void setEnergyHistory(List<Double> energyHistory) {
+        this.energyHistory = energyHistory;
     }
+    public void setPowerHistory(List<Double> powerHistory) {this.powerHistory = powerHistory;}
 
 
     public String getGraphDataAsJsonCurrent() {
         return "[" + dataToDisplay + "]";
     }
 
-    public String getGraphDataAsJsonAll() {
-        return dataToDisplayAll != null ? dataToDisplayAll.toString() : "[]";
+    public String getEnergyHistoryAsJsonAll() {
+        return energyHistory != null ? energyHistory.toString() : "[]";
+    }
+    public String getPowerHistoryAsJsonAll() {
+        return powerHistory != null ? powerHistory.toString() : "[]";
     }
 
     public String getLabelsAsJson() {
-        int dataLength = dataToDisplayAll.size();
+        int dataLength = energyHistory.size();
         List<String> labels = new ArrayList<>();
         for (int i = 0; i < dataLength; i++) {
             if (i == dataLength - 1) {

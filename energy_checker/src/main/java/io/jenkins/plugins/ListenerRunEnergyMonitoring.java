@@ -12,25 +12,25 @@ import java.util.Collections;
 import java.util.List;
 
 @Extension
-public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
+public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
 
     @Override
     public void onInitialize(@NonNull Run<?, ?> run) {
-        run.addAction(new EnergyVariablesAction(System.currentTimeMillis(), lectureConsommation()));
+        run.addAction(new VariablesConsumptionAction(System.currentTimeMillis(), lectureConsommation()));
     }
 
     @Override
     public void onStarted(Run<?, ?> run, TaskListener listener) {
         super.onStarted(run, listener);
         listener.getLogger().println("Début de la surveillance de la consommation d'énergie. (onStarted)");
-        listener.getLogger().println("Temps à onInitialize() : " + run.getAction(EnergyVariablesAction.class).getStartTime());
+        listener.getLogger().println("Temps à onInitialize() : " + run.getAction(VariablesConsumptionAction.class).getStartTime());
         listener.getLogger().println("Temps actuel : "+System.currentTimeMillis());
     }
 
     @Override
     public void onCompleted(Run<?, ?> run, @NonNull TaskListener listener) {
         listener.getLogger().println("onCompleted() launched");
-        EnergyVariablesAction action = run.getAction(EnergyVariablesAction.class);
+        VariablesConsumptionAction action = run.getAction(VariablesConsumptionAction.class);
         if (action != null) {
             double startTime = action.getStartTime();
             double startConsumption = action.getStartConsumption();
@@ -38,32 +38,38 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
             listener.getLogger().println("lauching lectureConsommation()");
             double endConsumption = lectureConsommation();
             listener.getLogger().println("end of lectureConsommation()");
-            listener.getLogger().println("endConsumption = " + endConsumption);
-            listener.getLogger().println("endTime = " + endTime);
             listener.getLogger().println("startTime = " + startTime);
             listener.getLogger().println("startConsumption = " + startConsumption);
-            double energyConsumed = calculateEnergyConsumption(startTime, endTime, startConsumption, endConsumption);
-            listener.getLogger().println("Consommation d'énergie pendant le build : " + energyConsumed + " Watts.");
+            listener.getLogger().println("endTime = " + endTime);
+            listener.getLogger().println("endConsumption = " + endConsumption);
+            double powerUsed = calculatePowerUsed(startTime, endTime, startConsumption, endConsumption);
+            double energyConsumed = (endConsumption - startConsumption)/1000000;
+            listener.getLogger().println("Consommation d'énergie pendant le build : " + energyConsumed + " Joules");
+            listener.getLogger().println("Puissance mobilisé lors du build : " + powerUsed + " Watts");
             action.setEnergyConsumed(energyConsumed);
+            action.setPowerUsed(powerUsed);
             double previousBuildConsumption = getPreviousBuildEnergyConsumed(run);
             listener.getLogger().println("previousBuildConsumption = " + previousBuildConsumption);
 
-            List<Double> previousConsumptions = getPreviousBuildsConsumption(run);
-            ConsumptionsPreviousBuilds historyConsumptions = new ConsumptionsPreviousBuilds(previousConsumptions);
+            List<Double> previousEnergies = getPreviousBuildsEnergy(run);
+            List<Double> previousPowers = getPreviousBuildsPower(run);
+            VariablesConsumptionsPreviousBuild historyConsumptions = new VariablesConsumptionsPreviousBuild(previousEnergies, previousPowers);
             run.addAction(historyConsumptions);
             historyConsumptions.addEnergyConsumption(energyConsumed);
-            listener.getLogger().println("History of Consumptions Updated: " + historyConsumptions.getEnergyConsumptions());
+            historyConsumptions.addWattUsage(powerUsed);
+            listener.getLogger().println("History of Energy Consumptions Updated: " + historyConsumptions.getEnergyConsumptions());
+            listener.getLogger().println("History of Power Usages Updated: " + historyConsumptions.getPowerUsages());
 
 
             listener.getLogger().println("Launching chart");
-            run.addAction(new ChartDisplay());
+            run.addAction(new DisplayChart());
         }
     }
 
     @Override
     public void onFinalized(@NonNull Run<?, ?> run) {}
 
-    private double calculateEnergyConsumption(
+    private double calculatePowerUsed(
             double startTime, double endTime, double startConsumption, double endConsumption) {
         double consumption = endConsumption - startConsumption;
         double duration = (endTime - startTime) / 1000;
@@ -87,7 +93,7 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
     public double getPreviousBuildEnergyConsumed(Run<?, ?> currentRun) {
         Run<?, ?> previousBuild = currentRun.getPreviousBuild();
         if (previousBuild != null) {
-            EnergyVariablesAction action = previousBuild.getAction(EnergyVariablesAction.class);
+            VariablesConsumptionAction action = previousBuild.getAction(VariablesConsumptionAction.class);
             if (action != null) {
                 return action.getEnergyConsumed();
             }
@@ -95,12 +101,22 @@ public class EnergyMonitoringRunListener extends RunListener<Run<?, ?>> {
         return 0;
     }
 
-    public List<Double> getPreviousBuildsConsumption(Run<?, ?> currentRun) {
+    public List<Double> getPreviousBuildsEnergy(Run<?, ?> currentRun) {
         Run<?, ?> previousBuild = currentRun.getPreviousBuild();
         if (previousBuild != null) {
-            ConsumptionsPreviousBuilds action = previousBuild.getAction(ConsumptionsPreviousBuilds.class);
+            VariablesConsumptionsPreviousBuild action = previousBuild.getAction(VariablesConsumptionsPreviousBuild.class);
             if (action != null) {
                 return action.getEnergyConsumptions();
+            }
+        }
+        return Collections.emptyList();
+    }
+    public List<Double> getPreviousBuildsPower(Run<?, ?> currentRun) {
+        Run<?, ?> previousBuild = currentRun.getPreviousBuild();
+        if (previousBuild != null) {
+            VariablesConsumptionsPreviousBuild action = previousBuild.getAction(VariablesConsumptionsPreviousBuild.class);
+            if (action != null) {
+                return action.getPowerUsages();
             }
         }
         return Collections.emptyList();

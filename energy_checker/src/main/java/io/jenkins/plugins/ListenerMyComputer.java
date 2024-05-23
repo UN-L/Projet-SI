@@ -6,7 +6,7 @@ import hudson.model.TaskListener;
 import hudson.slaves.ComputerListener;
 
 @Extension
-public class MyComputerListener extends ComputerListener {
+public class ListenerMyComputer extends ComputerListener {
 
     @Override
     public void onOnline(Computer c, TaskListener listener) {

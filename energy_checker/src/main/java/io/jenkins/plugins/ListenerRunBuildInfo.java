@@ -1,16 +1,14 @@
 package io.jenkins.plugins;
 
-import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
 import hudson.model.Result;
 import hudson.model.ParametersAction;
 import hudson.model.ParameterValue;
-import java.util.List;
 
-@Extension
-public class BuildInfoRunListener extends RunListener<Run<?, ?>> {
+//@Extension
+public class ListenerRunBuildInfo extends RunListener<Run<?, ?>> {
 
     @Override
     public void onCompleted(Run<?, ?> run, TaskListener listener) {

@@ -15,6 +15,10 @@
                 </select>
                 <button type="button" onclick="updateChart()">Mettre à jour</button>
             </form>
+            <div class="toggle-container">
+                <div class="toggle-button active" id="toggle-watt">Watt</div>
+                <div class="toggle-button" id="toggle-joule">Joule</div>
+            </div>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <div id="chartContainer" style="width: 100%; height: 100%;">
                 <canvas id="chart"></canvas>
@@ -24,52 +28,100 @@
 
                 console.log("Labels JSON:", "${it.getLabelsAsJson()}");
                 console.log('data:','${it.getGraphDataAsJsonAll()}')
-                var allEnergyConsumptions = ${it.getGraphDataAsJsonAll()};
+                var energyConsumptions = ${it.getEnergyHistoryAsJsonAll()};
+                var powerUsages = ${it.getPowerHistoryAsJsonAll()};
                 var allLabels = ${it.getLabelsAsJson()};
+                var unit = 'watts';
+                var chart;
+
 
                 function updateChart() {
+                    if(chart) {chart.destroy()}
+                    var data = unit === 'watts' ? powerUsages : energyConsumptions;
+                    var label = unit === 'watts' ? 'Power Used (Watts)' : 'Energy Consumed (Joules)';
+
                     var numBuilds = document.getElementById('numBuilds').value;
-                    var energyConsumptions, labels;
+                    var labels;
 
                     if (numBuilds === 'all') {
-                        energyConsumptions = allEnergyConsumptions;
                         labels = allLabels;
                     } else {
                         numBuilds = parseInt(numBuilds);
-                        energyConsumptions = allEnergyConsumptions.slice(-numBuilds);
+                        data = data.slice(-numBuilds);
                         labels = allLabels.slice(-numBuilds);
                     }
 
-                    chart.data.labels = labels;
-                    chart.data.datasets[0].data = energyConsumptions;
-                    chart.update();
-                }
-
-                var chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: allLabels.slice(-5),
-                        datasets: [{
-                            label: 'Consumption (Watt)',
-                            data: allEnergyConsumptions.slice(-5),
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                    chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: label,
+                                data: data,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
+                    });
+                }
+
+                updateChart()
+
+                document.getElementById('toggle-watt').addEventListener('click', function() {
+                    unit = 'watts';
+                    updateChart();
+                    setActiveToggle('toggle-watt');
                 });
+                document.getElementById('toggle-joule').addEventListener('click', function() {
+                    unit = 'joules';
+                    updateChart();
+                    setActiveToggle('toggle-joule');
+                });
+
+                function setActiveToggle(activeToggleId) {
+                    var toggles = document.querySelectorAll('.toggle-button');
+                    toggles.forEach(function(toggle) {
+                        if (toggle.id === activeToggleId) {
+                            toggle.classList.add('active');
+                        } else {
+                            toggle.classList.remove('active');
+                        }
+                    });
+                }
+
+                setActiveToggle('toggle-watt');
+
             </script>
+            <style>
+                .toggle-container {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                }
+                .toggle-button {
+                    flex: 1;
+                    text-align: center;
+                    padding: 10px;
+                    border: 1px solid #000;
+                    cursor: pointer;
+                }
+                .toggle-button.active {
+                    background-color: #f0f0f0;
+                    font-weight: bold;
+                }
+            </style>
         </l:main-panel>
     </l:layout>
 </j:jelly>

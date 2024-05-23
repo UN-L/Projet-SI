@@ -2,12 +2,13 @@ package io.jenkins.plugins;
 
 import hudson.model.Action;
 
-public class EnergyVariablesAction implements Action {
+public class VariablesConsumptionAction implements Action {
     private final double startTime;
     private final double startConsumption;
     private double energyConsumed;
+    private double powerUsed;
 
-    public EnergyVariablesAction(double startTime, double startConsumption) {
+    public VariablesConsumptionAction(double startTime, double startConsumption) {
         this.startTime = startTime;
         this.startConsumption = startConsumption;
     }
@@ -15,10 +16,12 @@ public class EnergyVariablesAction implements Action {
     public double getEnergyConsumed() {
         return energyConsumed;
     }
+    public double getPowerUsed() {return powerUsed;}
 
     public void setEnergyConsumed(double energyConsumed) {
         this.energyConsumed = energyConsumed;
     }
+    public void setPowerUsed(double powerUsed) {this.powerUsed = powerUsed;}
 
     public double getStartTime() {
         return startTime;

@@ -5,15 +5,14 @@
             <st:include page="sidepanel.jelly" it="${it.run}" optional="false" />
         </l:side-panel>
         <l:main-panel>
-            <h3>Consommation d'énergie</h3>
+            <h3>Consommation d'énergie des builds</h3>
             <form id="chartForm">
-                <label for="numBuilds">Nombre de builds à afficher:</label>
+                <label for="numBuilds">Nombre de builds à afficher : </label>
                 <select id="numBuilds" onchange="updateChart()">
                     <option value="5">Les 5 derniers builds</option>
                     <option value="10">Les 10 derniers builds</option>
                     <option value="all">Tous les builds</option>
                 </select>
-                <button type="button" onclick="updateChart()">Mettre à jour</button>
             </form>
             <div class="toggle-container">
                 <div class="toggle-button active" id="toggle-watt">Watt</div>

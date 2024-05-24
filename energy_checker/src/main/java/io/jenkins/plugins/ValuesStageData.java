@@ -56,4 +56,21 @@ public class ValuesStageData {
             return wattsProvided;
         }
     }
+
+    public String toJson() {
+        StringBuilder json = new StringBuilder("[");
+        for (StageData data : stageDataList) {
+            if (json.length() > 1) {
+                json.append(",");
+            }
+            json.append("{");
+            json.append("\"stageName\":\"").append(data.getStageName()).append("\",");
+            json.append("\"duration\":").append(data.getDuration()).append(",");
+            json.append("\"joulesConsumed\":").append(data.getJoulesConsumed()).append(",");
+            json.append("\"wattsProvided\":").append(data.getWattsProvided());
+            json.append("}");
+        }
+        json.append("]");
+        return json.toString();
+    }
 }

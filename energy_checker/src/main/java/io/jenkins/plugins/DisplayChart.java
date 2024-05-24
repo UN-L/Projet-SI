@@ -24,7 +24,7 @@ public class DisplayChart implements RunAction2 {
 
     @Override
     public String getUrlName() {
-        return "chart";
+        return "chart2";
     }
 
     @Override

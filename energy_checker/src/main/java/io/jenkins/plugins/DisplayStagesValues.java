@@ -3,8 +3,6 @@ package io.jenkins.plugins;
 import hudson.model.Run;
 import jenkins.model.RunAction2;
 
-import java.util.List;
-
 public class DisplayStagesValues implements RunAction2 {
 
     private transient Run run;
@@ -39,7 +37,6 @@ public class DisplayStagesValues implements RunAction2 {
     }
 
     public String getStageDataAsJson() {
-        List<ValuesStageData.StageData> stageDataList = ValuesStageData.getInstance().getStageDataList();
-        return stageDataList.toString();
+        return ValuesStageData.getInstance().toJson();
     }
 }

@@ -12,10 +12,16 @@
             </div>
             <script>
                 var ctx = document.getElementById('chart').getContext('2d');
+
                 var stageData = ${it.getStageDataAsJson()};
 
+                console.log("Stage Data JSON:", stageData);
+
+
                 var labels = stageData.map(data => data.stageName);
+                console.log("labels :", labels)
                 var energyData = stageData.map(data => data.joulesConsumed);
+                console.log("energyData :",energyData)
                 var powerData = stageData.map(data => data.wattsProvided);
 
                 var unit = 'joules'; // Default unit

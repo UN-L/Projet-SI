@@ -19,7 +19,6 @@ public class ListenerStages implements GraphListener {
     public void onNewHead(FlowNode node) {
         if (node != null) {
             String stageName = node.getDisplayName();
-            // long startTime = node.getExecution().getOwner().getStartTimeMillis();
             double startTime = (System.currentTimeMillis() - timeStartOfClass) / 1000;
             double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartOfClass;
             if (!firstNode) {
@@ -28,19 +27,21 @@ public class ListenerStages implements GraphListener {
                 double wattProvidedPrevious = deltaJoules / duration;
                 try {
                     TaskListener listener = node.getExecution().getOwner().getListener();
-                    listener.getLogger()
-                            .println("Stage '" + stageNamePrevious + "' lasted for " + String.format("%.3f", duration)
-                                    + " seconds, provided " + wattProvidedPrevious + " watts and consumed "
-                                    + deltaJoules + " joules");
-                } catch (Exception e) {}
+                    listener.getLogger().println("Stage '" + stageNamePrevious + "' lasted for " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
+
+                    // Add stage data to the singleton
+                    ValuesStageData.getInstance().addStageData(stageNamePrevious, duration, deltaJoules, wattProvidedPrevious);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             System.out.println("Stage '" + stageName + "' started at: " + startTime);
             try {
                 TaskListener listener = node.getExecution().getOwner().getListener();
-                listener.getLogger()
-                        .println("Stage '" + stageName + "' started at: " + String.format("%.3f", startTime)
-                                + " seconds");
-            } catch (Exception e) {}
+                listener.getLogger().println("Stage '" + stageName + "' started at: " + String.format("%.3f", startTime) + " seconds");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             startTimePrevious = startTime;
             stageNamePrevious = stageName;
             joulesConsumedPrevious = joulesConsumed;

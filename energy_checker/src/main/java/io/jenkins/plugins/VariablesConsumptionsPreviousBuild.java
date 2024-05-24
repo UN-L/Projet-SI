@@ -25,7 +25,7 @@ public class VariablesConsumptionsPreviousBuild implements Action {
 
     @Override
     public String getIconFileName() {
-        return null;  // No icon is needed
+        return null;
     }
 
     @Override

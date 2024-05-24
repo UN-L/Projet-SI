@@ -5,17 +5,18 @@ import hudson.model.TaskListener;
 import org.jenkinsci.plugins.workflow.flow.GraphListener;
 import org.jenkinsci.plugins.workflow.graph.FlowNode;
 
-import java.util.logging.Logger;
-
 @Extension
 public class ListenerStages implements GraphListener {
 
-    private static final Logger LOGGER = Logger.getLogger(ListenerStages.class.getName());
 
-    double startOfClass = System.currentTimeMillis();
+    double timeStartOfClass = System.currentTimeMillis();
+    double joulesStartOfClass = ScriptGetEnergeticValues.lectureConsommation();
+    boolean firstNode = true;
+    double startTimePrevious;
+    String stageNamePrevious;
+    double joulesConsumedPrevious;
 
     public ListenerStages() {
-        LOGGER.info("BuildGraphListener created");
         System.out.println("BuildGraphListener created");
     }
 
@@ -24,13 +25,27 @@ public class ListenerStages implements GraphListener {
         if (node != null) {
             String stageName = node.getDisplayName();
             //long startTime = node.getExecution().getOwner().getStartTimeMillis();
-            double startTime = System.currentTimeMillis()-startOfClass;
-            LOGGER.info("Stage '" + stageName + "' started at: " + startTime);
+            double startTime = (System.currentTimeMillis()- timeStartOfClass)/1000;
+            double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartOfClass;
+            if (!firstNode) {
+                double duration = startTime - startTimePrevious;
+                double deltaJoules = (joulesConsumed - joulesConsumedPrevious)/1000000;
+                double wattProvidedPrevious = deltaJoules / duration;
+                try {
+                    TaskListener listener = node.getExecution().getOwner().getListener();
+                    listener.getLogger().println("Stage '" + stageNamePrevious + "' lasted for " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
+                } catch (Exception e) {}
+
+            }
             System.out.println("Stage '" + stageName + "' started at: " + startTime);
             try {
                 TaskListener listener = node.getExecution().getOwner().getListener();
-                listener.getLogger().println("Stage '" + stageName + "' started at: " + startTime/1000 + " seconds");
+                listener.getLogger().println("Stage '" + stageName + "' started at: " + String.format("%.3f", startTime) + " seconds");
             } catch (Exception e) {}
+            startTimePrevious = startTime;
+            stageNamePrevious = stageName;
+            joulesConsumedPrevious = joulesConsumed;
+            firstNode = false;
 
         }
     }

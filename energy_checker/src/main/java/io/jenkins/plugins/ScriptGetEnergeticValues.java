@@ -23,11 +23,17 @@ public class ScriptGetEnergeticValues {
         try (BufferedReader lecteur = new BufferedReader(new FileReader(chemin))) {
             String ligne = lecteur.readLine();
             if (ligne != null) {
-                return Double.parseDouble(ligne);
+                return Double.parseDouble(ligne)/1000000;
             }
         } catch (IOException e) {
             System.err.println("Erreur de lecture du fichier : " + e.getMessage());
         }
         return 0;
+    }
+
+    public static ValuesEnergetic setEnergeticValues(double duration, double startEnergy, double endEnergy) {
+        double energy = endEnergy - startEnergy;
+        double power = energy / duration;
+        return new ValuesEnergetic<>(energy, power);
     }
 }

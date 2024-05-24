@@ -29,7 +29,7 @@ public class ListenerStages implements GraphListener {
             double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartOfClass;
             if (!firstNode) {
                 double duration = startTime - startTimePrevious;
-                double deltaJoules = (joulesConsumed - joulesConsumedPrevious)/1000000;
+                double deltaJoules = joulesConsumed - joulesConsumedPrevious;
                 double wattProvidedPrevious = deltaJoules / duration;
                 try {
                     TaskListener listener = node.getExecution().getOwner().getListener();
@@ -46,7 +46,6 @@ public class ListenerStages implements GraphListener {
             stageNamePrevious = stageName;
             joulesConsumedPrevious = joulesConsumed;
             firstNode = false;
-
         }
     }
 }

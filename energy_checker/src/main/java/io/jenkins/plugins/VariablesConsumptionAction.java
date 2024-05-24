@@ -16,12 +16,18 @@ public class VariablesConsumptionAction implements Action {
     public double getEnergyConsumed() {
         return energyConsumed;
     }
-    public double getPowerUsed() {return powerUsed;}
+
+    public double getPowerUsed() {
+        return powerUsed;
+    }
 
     public void setEnergyConsumed(double energyConsumed) {
         this.energyConsumed = energyConsumed;
     }
-    public void setPowerUsed(double powerUsed) {this.powerUsed = powerUsed;}
+
+    public void setPowerUsed(double powerUsed) {
+        this.powerUsed = powerUsed;
+    }
 
     public double getStartTime() {
         return startTime;

@@ -10,5 +10,7 @@ public class ValuesEnergetic<E, P> {
     }
 
     @Override
-    public String toString() {return "(energy=" + energy + ", power=" + power + ")";}
+    public String toString() {
+        return "(energy=" + energy + ", power=" + power + ")";
+    }
 }

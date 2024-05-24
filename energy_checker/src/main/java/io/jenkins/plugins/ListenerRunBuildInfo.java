@@ -1,13 +1,9 @@
 package io.jenkins.plugins;
 
-import hudson.model.Run;
-import hudson.model.TaskListener;
+import hudson.model.*;
 import hudson.model.listeners.RunListener;
-import hudson.model.Result;
-import hudson.model.ParametersAction;
-import hudson.model.ParameterValue;
 
-//@Extension
+// @Extension
 public class ListenerRunBuildInfo extends RunListener<Run<?, ?>> {
 
     @Override
@@ -27,19 +23,5 @@ public class ListenerRunBuildInfo extends RunListener<Run<?, ?>> {
         listener.getLogger().println("Build duration: " + duration + " ms");
 
         listener.getLogger().println("Build time: " + run.getTimestamp());
-
-        // Build parameters (for parameterized builds)
-        ParametersAction parametersAction = run.getAction(ParametersAction.class);
-        if (parametersAction != null) {
-            for (ParameterValue parameter : parametersAction.getParameters()) {
-                String paramName = parameter.getName();
-                String paramValue = parameter.getValue().toString();
-                listener.getLogger().println("Parameter: " + paramName + " = " + paramValue);
-            }
-        }
-
-
-
     }
 }
-

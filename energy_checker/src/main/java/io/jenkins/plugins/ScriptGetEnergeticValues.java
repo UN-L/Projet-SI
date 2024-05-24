@@ -1,12 +1,16 @@
 package io.jenkins.plugins;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class ScriptGetEnergeticValues {
 
-    public static double calculatePowerUsed(double startTime, double endTime, double startConsumption, double endConsumption) {
+    public static double calculatePowerUsed(
+            double startTime, double endTime, double startConsumption, double endConsumption) {
         double consumption = endConsumption - startConsumption;
         double duration = (endTime - startTime) / 1000;
         return consumption / duration / 1000000;
@@ -17,13 +21,15 @@ public class ScriptGetEnergeticValues {
         return consumption / duration / 1000000;
     }
 
+    @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
     public static double lectureConsommation() {
         // String chemin = System.getProperty("user.home") + "/fichier_pour_lecture_jenkins/consumption.txt";
         String chemin = "/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0/energy_uj";
-        try (BufferedReader lecteur = new BufferedReader(new FileReader(chemin))) {
+        try (BufferedReader lecteur =
+                new BufferedReader(new InputStreamReader(new FileInputStream(chemin), StandardCharsets.UTF_8))) {
             String ligne = lecteur.readLine();
             if (ligne != null) {
-                return Double.parseDouble(ligne)/1000000;
+                return Double.parseDouble(ligne) / 1000000;
             }
         } catch (IOException e) {
             System.err.println("Erreur de lecture du fichier : " + e.getMessage());

@@ -9,7 +9,6 @@ import java.util.List;
 public class DisplayChart implements RunAction2 {
 
     private transient Run run;
-    private double dataToDisplay;
     private List<Double> energyHistory;
     private List<Double> powerHistory;
 
@@ -31,14 +30,10 @@ public class DisplayChart implements RunAction2 {
     @Override
     public void onAttached(Run<?, ?> run) {
         this.run = run;
-        VariablesConsumptionAction action = run.getAction(VariablesConsumptionAction.class);
-        VariablesConsumptionsPreviousBuild consumptions = run.getAction(VariablesConsumptionsPreviousBuild.class);
+        VariablesConsumptionsPreviousBuild action = run.getAction(VariablesConsumptionsPreviousBuild.class);
         if (action != null) {
-            setDataToDisplay(action.getEnergyConsumed());
-        }
-        if (consumptions != null) {
-            setEnergyHistory(consumptions.getEnergyConsumptions());
-            setPowerHistory(consumptions.getPowerUsages());
+            setEnergyHistory(action.getEnergyConsumptions());
+            setPowerHistory(action.getPowerProvisions());
         }
     }
 
@@ -51,23 +46,18 @@ public class DisplayChart implements RunAction2 {
         return run;
     }
 
-    public void setDataToDisplay(double dataToDisplay) {
-        this.dataToDisplay = dataToDisplay;
-    }
-
     public void setEnergyHistory(List<Double> energyHistory) {
         this.energyHistory = energyHistory;
     }
-    public void setPowerHistory(List<Double> powerHistory) {this.powerHistory = powerHistory;}
 
-
-    public String getGraphDataAsJsonCurrent() {
-        return "[" + dataToDisplay + "]";
+    public void setPowerHistory(List<Double> powerHistory) {
+        this.powerHistory = powerHistory;
     }
 
     public String getEnergyHistoryAsJsonAll() {
         return energyHistory != null ? energyHistory.toString() : "[]";
     }
+
     public String getPowerHistoryAsJsonAll() {
         return powerHistory != null ? powerHistory.toString() : "[]";
     }
@@ -81,7 +71,7 @@ public class DisplayChart implements RunAction2 {
             } else if (i == dataLength - 2) {
                 labels.add("'PreviousBuild'");
             } else {
-                labels.add("'CurrentBuild-" + (dataLength - i - 1)+"'");
+                labels.add("'CurrentBuild-" + (dataLength - i - 1) + "'");
             }
         }
         return labels.toString();

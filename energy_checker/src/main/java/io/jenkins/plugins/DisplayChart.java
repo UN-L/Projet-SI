@@ -24,7 +24,7 @@ public class DisplayChart implements RunAction2 {
 
     @Override
     public String getUrlName() {
-        return "chart2";
+        return "chart";
     }
 
     @Override
@@ -81,5 +81,5 @@ public class DisplayChart implements RunAction2 {
         return ValuesStageData.getInstance().toJson();
     }
 
-    public String getExecutionDataAsJson() {return ValuesExecutionData.getInstance().toJson();}
+    public String getExecutionDataAsJson() { return ValuesExecutionData.getInstance().toJson(); }
 }

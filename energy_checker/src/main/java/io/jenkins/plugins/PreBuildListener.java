@@ -1,11 +1,10 @@
 package io.jenkins.plugins;
 
-import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
 
-@Extension
+//@Extension
 public class PreBuildListener extends RunListener<Run<?, ?>> {
 
     @Override

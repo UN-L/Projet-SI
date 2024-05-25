@@ -29,7 +29,6 @@ public class ListenerStages implements GraphListener {
                     TaskListener listener = node.getExecution().getOwner().getListener();
                     listener.getLogger().println("Stage '" + stageNamePrevious + "' lasted for " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
 
-                    // Add stage data to the singleton
                     ValuesStageData.getInstance().addStageData(stageNamePrevious, duration, deltaJoules, wattProvidedPrevious);
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -76,4 +76,10 @@ public class DisplayChart implements RunAction2 {
         }
         return labels.toString();
     }
+
+    public String getStageDataAsJson() {
+        return ValuesStageData.getInstance().toJson();
+    }
+
+    public String getExecutionDataAsJson() {return ValuesExecutionData.getInstance().toJson();}
 }

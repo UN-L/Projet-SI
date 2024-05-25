@@ -3,44 +3,38 @@ package io.jenkins.plugins;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValuesStageData {
-    private static ValuesStageData instance;
-    private List<StageData> stageDataList;
+public class ValuesExecutionData {
+    private static ValuesExecutionData instance;
+    private List<PartData> partDataList;
 
-    private ValuesStageData() {
-        stageDataList = new ArrayList<>();
+    private ValuesExecutionData() {
+        partDataList = new ArrayList<>();
     }
 
-    public static synchronized ValuesStageData getInstance() {
+    public static synchronized ValuesExecutionData getInstance() {
         if (instance == null) {
-            instance = new ValuesStageData();
+            instance = new ValuesExecutionData();
         }
         return instance;
     }
 
-    public void addStageData(String stageName, double duration, double joulesConsumed, double wattsProvided) {
-        stageDataList.add(new StageData(stageName, duration, joulesConsumed, wattsProvided));
+    public void addPartData(double duration, double joulesConsumed, double wattsProvided) {
+        partDataList.add(new PartData(duration, joulesConsumed, wattsProvided));
     }
 
-    public List<StageData> getStageDataList() {
-        return new ArrayList<>(stageDataList);
+    public List<PartData> getPartDataList() {
+        return new ArrayList<>(partDataList);
     }
 
-    public static class StageData {
-        private String stageName;
+    public static class PartData {
         private double duration;
         private double joulesConsumed;
         private double wattsProvided;
 
-        public StageData(String stageName, double duration, double joulesConsumed, double wattsProvided) {
-            this.stageName = stageName;
+        public PartData(double duration, double joulesConsumed, double wattsProvided) {
             this.duration = duration;
             this.joulesConsumed = joulesConsumed;
             this.wattsProvided = wattsProvided;
-        }
-
-        public String getStageName() {
-            return stageName;
         }
 
         public double getDuration() {
@@ -58,12 +52,11 @@ public class ValuesStageData {
 
     public String toJson() {
         StringBuilder json = new StringBuilder("[");
-        for (StageData data : stageDataList) {
+        for (PartData data : partDataList) {
             if (json.length() > 1) {
                 json.append(",");
             }
             json.append("{");
-            json.append("\"stageName\":\"").append(data.getStageName()).append("\",");
             json.append("\"duration\":").append(data.getDuration()).append(",");
             json.append("\"joulesConsumed\":").append(data.getJoulesConsumed()).append(",");
             json.append("\"wattsProvided\":").append(data.getWattsProvided());

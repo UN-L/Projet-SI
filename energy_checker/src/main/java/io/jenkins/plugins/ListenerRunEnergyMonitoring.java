@@ -68,7 +68,7 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
 
             listener.getLogger().println("Launching chart");
             run.addAction(new DisplayChart());
-            run.addAction(new DisplayStagesValues());
+            CompletionLatch.getInstance().countDown();
         }
     }
 

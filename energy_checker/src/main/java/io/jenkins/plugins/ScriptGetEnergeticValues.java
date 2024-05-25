@@ -9,6 +9,12 @@ import java.nio.charset.StandardCharsets;
 
 public class ScriptGetEnergeticValues {
 
+    private static double idleConsumption = 0;
+
+    public static void measureIdleConsumption() {
+        idleConsumption = lectureConsommation();
+    }
+
     public static double calculatePowerUsed(
             double startTime, double endTime, double startConsumption, double endConsumption) {
         double consumption = endConsumption - startConsumption;
@@ -23,7 +29,6 @@ public class ScriptGetEnergeticValues {
 
     @SuppressFBWarnings("DMI_HARDCODED_ABSOLUTE_FILENAME")
     public static double lectureConsommation() {
-        // String chemin = System.getProperty("user.home") + "/fichier_pour_lecture_jenkins/consumption.txt";
         String chemin = "/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0/energy_uj";
         try (BufferedReader lecteur =
                 new BufferedReader(new InputStreamReader(new FileInputStream(chemin), StandardCharsets.UTF_8))) {

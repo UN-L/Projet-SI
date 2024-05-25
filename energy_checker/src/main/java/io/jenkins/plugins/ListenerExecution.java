@@ -1,29 +1,50 @@
 package io.jenkins.plugins;
 
+import hudson.Extension;
 import hudson.model.TaskListener;
 import org.jenkinsci.plugins.workflow.flow.FlowExecution;
 import org.jenkinsci.plugins.workflow.flow.FlowExecutionListener;
 
-// @Extension
+@Extension
 public class ListenerExecution extends FlowExecutionListener {
 
     private volatile boolean isRunning = false;
+    double previousPartTime;
+    double joulesConsumedPrevious;
+    boolean firstPart = true;
 
     @Override
     public void onRunning(FlowExecution execution) {
-        System.out.println("Pipeline is running");
         isRunning = true;
         double startRunning = System.currentTimeMillis();
+        double joulesStartRunning = ScriptGetEnergeticValues.lectureConsommation();
         while (isRunning) {
-            double currentRunning = System.currentTimeMillis() - startRunning;
-            double energeticValues = ScriptGetEnergeticValues.lectureConsommation();
+            double currentPartTime = (System.currentTimeMillis() - startRunning)/1000;
+            double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartRunning;
+            if (!firstPart) {
+                double duration = currentPartTime - previousPartTime;
+                double deltaJoules = joulesConsumed - joulesConsumedPrevious;
+                double wattProvidedPrevious = deltaJoules / duration;
+                try {
+                    TaskListener listener = execution.getOwner().getListener();
+                    listener.getLogger()
+                            .println("Running " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
+                    ValuesExecutionData.getInstance().addPartData(duration, deltaJoules, wattProvidedPrevious);
+                } catch (Exception e) {e.printStackTrace();}
+
+            }
             try {
                 TaskListener listener = execution.getOwner().getListener();
-                listener.getLogger()
-                        .println("Running " + currentRunning / 1000 + " seconds with " + energeticValues + " watts");
-            } catch (Exception e) {}
+                listener.getLogger().println("Part started at: " + String.format("%.3f", currentPartTime) + " seconds");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            previousPartTime = currentPartTime;
+            joulesConsumedPrevious = joulesConsumed;
+            firstPart = false;
+
             try {
-                Thread.sleep(5000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 break;
             }
@@ -34,8 +55,12 @@ public class ListenerExecution extends FlowExecutionListener {
     public void onCompleted(FlowExecution execution) {
         System.out.println("Pipeline completed");
         try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {}
+            CompletionLatch.getInstance().await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        isRunning = false;
 
         isRunning = false;
     }

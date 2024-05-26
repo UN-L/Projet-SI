@@ -9,7 +9,7 @@ import org.jenkinsci.plugins.workflow.graph.FlowNode;
 public class ListenerStages implements GraphListener {
 
     double timeStartOfClass = System.currentTimeMillis();
-    double joulesStartOfClass = ScriptGetEnergeticValues.lectureConsommation();
+    double joulesStartOfClass = ScriptGetEnergeticValues.readRAPL();
     boolean firstNode = true;
     double startTimePrevious;
     String stageNamePrevious;
@@ -20,7 +20,7 @@ public class ListenerStages implements GraphListener {
         if (node != null) {
             String stageName = node.getDisplayName();
             double startTime = (System.currentTimeMillis() - timeStartOfClass) / 1000;
-            double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartOfClass;
+            double joulesConsumed = ScriptGetEnergeticValues.readRAPL() - joulesStartOfClass;
             if (!firstNode) {
                 double duration = startTime - startTimePrevious;
                 double deltaJoules = joulesConsumed - joulesConsumedPrevious;

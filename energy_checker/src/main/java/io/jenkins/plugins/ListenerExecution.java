@@ -17,25 +17,22 @@ public class ListenerExecution extends FlowExecutionListener {
     public void onRunning(FlowExecution execution) {
         isRunning = true;
         double startRunning = System.currentTimeMillis();
-        double joulesStartRunning = ScriptGetEnergeticValues.lectureConsommation();
+        double joulesStartRunning = ScriptGetEnergeticValues.readRAPL();
         while (isRunning) {
             double currentPartTime = (System.currentTimeMillis() - startRunning)/1000;
-            double joulesConsumed = ScriptGetEnergeticValues.lectureConsommation() - joulesStartRunning;
+            double joulesConsumed = ScriptGetEnergeticValues.readRAPL() - joulesStartRunning;
             if (!firstPart) {
                 double duration = currentPartTime - previousPartTime;
                 double deltaJoules = joulesConsumed - joulesConsumedPrevious;
                 double wattProvidedPrevious = deltaJoules / duration;
                 try {
-                    TaskListener listener = execution.getOwner().getListener();
-                    listener.getLogger()
-                            .println("Running " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
+                    //execution.getOwner().getListener().getLogger().println("Running " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
                     ValuesExecutionData.getInstance().addPartData(duration, deltaJoules, wattProvidedPrevious);
                 } catch (Exception e) {e.printStackTrace();}
 
             }
             try {
-                TaskListener listener = execution.getOwner().getListener();
-                listener.getLogger().println("Part started at: " + String.format("%.3f", currentPartTime) + " seconds");
+                //execution.getOwner().getListener().getLogger().println("Part started at: " + String.format("%.3f", currentPartTime) + " seconds");
             } catch (Exception e) {
                 e.printStackTrace();
             }

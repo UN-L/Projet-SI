@@ -14,7 +14,7 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
     @Override
     public void onInitialize(@NonNull Run<?, ?> run) {
         run.addAction(new VariablesConsumptionAction(
-                System.currentTimeMillis(), ScriptGetEnergeticValues.lectureConsommation()));
+                System.currentTimeMillis(), ScriptGetEnergeticValues.readRAPL()));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
             double startConsumption = action.getStartConsumption();
             double endTime = System.currentTimeMillis();
             listener.getLogger().println("lauching lectureConsommation()");
-            double endConsumption = ScriptGetEnergeticValues.lectureConsommation();
+            double endConsumption = ScriptGetEnergeticValues.readRAPL();
             listener.getLogger().println("end of lectureConsommation()");
             listener.getLogger().println("startTime = " + startTime);
             listener.getLogger().println("startConsumption = " + startConsumption);

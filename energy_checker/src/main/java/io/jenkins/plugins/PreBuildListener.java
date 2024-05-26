@@ -11,7 +11,7 @@ public class PreBuildListener extends RunListener<Run<?, ?>> {
     public void onStarted(Run<?, ?> run, TaskListener listener) {
         super.onStarted(run, listener);
 
-        double startIdleConsumption = ScriptGetEnergeticValues.lectureConsommation();
+        double startIdleConsumption = ScriptGetEnergeticValues.readRAPL();
 
         run.addAction(new IdleConsumptionAction(startIdleConsumption));
 

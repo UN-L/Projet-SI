@@ -38,6 +38,13 @@
                 var executionData = ${it.getExecutionDataAsJson()};
                 var allLabels = ${it.getLabelsAsJson()};
 
+                console.log("Energy Consumptions:", ${it.getEnergyHistoryAsJsonAll()});
+                console.log("Power Usages:", ${it.getPowerHistoryAsJsonAll()});
+                console.log("Stage Data:", ${it.getStageDataAsJson()});
+                console.log("Execution Data:", ${it.getExecutionDataAsJson()});
+                console.log("All Labels:", ${it.getLabelsAsJson()});
+
+
                 function setActiveToggle(activeToggleId) {
                     var toggles = document.querySelectorAll('.toggle-button');
                     toggles.forEach(function(toggle) {
@@ -92,7 +99,7 @@
                         type = 'bar';
                         title = 'Energetic Metrics by Stages';
                     } else if (currentView === 'execution') {
-                        labels = executionData.map((data, index) => (index * 0.5));
+                        labels = executionData.map((data, index) => (index + 2.0));
                         data = unit === 'watts' ? executionData.map(data => data.wattsProvided) : executionData.map(data => data.joulesConsumed);
                         if (unit !== 'watts') {
                             data = data.reduce((acc, value) => {
@@ -117,12 +124,12 @@
                                 label: label,
                                 data: data,
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)'
+                                    'rgba(190, 255, 0, 0.65)'
                                 ],
                                 borderColor: [
-                                    'rgba(255, 99, 132, 1)'
+                                    'rgba(190, 255, 0, 1)'
                                 ],
-                                borderWidth: 1
+                                borderWidth: 2
                             }]
                         },
                         options: {

@@ -44,7 +44,7 @@ public class ListenerExecution extends FlowExecutionListener {
             firstPart = false;
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 break;
             }

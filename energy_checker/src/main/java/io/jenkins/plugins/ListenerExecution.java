@@ -1,9 +1,12 @@
 package io.jenkins.plugins;
 
 import hudson.Extension;
+import hudson.model.Run;
 import hudson.model.TaskListener;
 import org.jenkinsci.plugins.workflow.flow.FlowExecution;
 import org.jenkinsci.plugins.workflow.flow.FlowExecutionListener;
+
+import java.io.IOException;
 
 @Extension
 public class ListenerExecution extends FlowExecutionListener {
@@ -13,11 +16,40 @@ public class ListenerExecution extends FlowExecutionListener {
     double joulesConsumedPrevious;
     boolean firstPart = true;
 
+
     @Override
     public void onRunning(FlowExecution execution) {
-        isRunning = true;
         double startRunning = System.currentTimeMillis();
         double joulesStartRunning = ScriptGetEnergeticValues.readRAPL();
+        firstPart = true;
+
+
+        Run<?, ?> run = null;
+        try {
+            run = (Run<?, ?>) execution.getOwner().getExecutable();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (run != null) {
+            run.addAction(new ValuesExecutionData());
+            try {
+                execution.getOwner().getListener().getLogger().println("run != null");
+            } catch (IOException e) {e.printStackTrace();}
+        } else {
+            try {
+                execution.getOwner().getListener().getLogger().println("run = null");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            execution.getOwner().getListener().getLogger().println("----------------\nLaunching is running\n----------------");
+        }catch (Exception e){e.printStackTrace();}
+        isRunning = true;
+
+        ValuesExecutionData action = run.getAction(ValuesExecutionData.class);
+
         while (isRunning) {
             double currentPartTime = (System.currentTimeMillis() - startRunning)/1000;
             double joulesConsumed = ScriptGetEnergeticValues.readRAPL() - joulesStartRunning;
@@ -27,7 +59,8 @@ public class ListenerExecution extends FlowExecutionListener {
                 double wattProvidedPrevious = deltaJoules / duration;
                 try {
                     //execution.getOwner().getListener().getLogger().println("Running " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
-                    ValuesExecutionData.getInstance().addPartData(duration, deltaJoules, wattProvidedPrevious);
+                    execution.getOwner().getListener().getLogger().println("duration : " + duration + ", at time : " + System.currentTimeMillis());
+                    action.addPartData(duration, deltaJoules, wattProvidedPrevious);
                 } catch (Exception e) {e.printStackTrace();}
 
             }
@@ -41,7 +74,7 @@ public class ListenerExecution extends FlowExecutionListener {
             firstPart = false;
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 break;
             }
@@ -56,9 +89,6 @@ public class ListenerExecution extends FlowExecutionListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        isRunning = false;
-
         isRunning = false;
     }
 

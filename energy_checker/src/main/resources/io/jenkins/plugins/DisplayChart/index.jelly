@@ -99,7 +99,7 @@
                         type = 'bar';
                         title = 'Energetic Metrics by Stages';
                     } else if (currentView === 'execution') {
-                        labels = executionData.map((data, index) => (index + 2.0));
+                        labels = executionData.map((data, index) => (index + 1.0));
                         data = unit === 'watts' ? executionData.map(data => data.wattsProvided) : executionData.map(data => data.joulesConsumed);
                         if (unit !== 'watts') {
                             data = data.reduce((acc, value) => {

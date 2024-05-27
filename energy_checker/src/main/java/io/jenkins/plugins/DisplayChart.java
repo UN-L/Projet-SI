@@ -78,8 +78,10 @@ public class DisplayChart implements RunAction2 {
     }
 
     public String getStageDataAsJson() {
-        return ValuesStageData.getInstance().toJson();
+        return run.getAction(ValuesStageData.class).toJson() != null ? run.getAction(ValuesStageData.class).toJson() : "[]";
     }
 
-    public String getExecutionDataAsJson() { return ValuesExecutionData.getInstance().toJson(); }
+    public String getExecutionDataAsJson() {
+        return run.getAction(ValuesExecutionData.class).toJson() != null ? run.getAction(ValuesExecutionData.class).toJson() : "[]";
+    }
 }

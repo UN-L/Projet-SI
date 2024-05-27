@@ -1,21 +1,15 @@
 package io.jenkins.plugins;
 
+import hudson.model.Action;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValuesStageData {
-    private static ValuesStageData instance;
+public class ValuesStageData implements Action {
     private List<StageData> stageDataList;
 
-    private ValuesStageData() {
+    public ValuesStageData() {
         stageDataList = new ArrayList<>();
-    }
-
-    public static synchronized ValuesStageData getInstance() {
-        if (instance == null) {
-            instance = new ValuesStageData();
-        }
-        return instance;
     }
 
     public void addStageData(String stageName, double duration, double joulesConsumed, double wattsProvided) {
@@ -24,6 +18,21 @@ public class ValuesStageData {
 
     public List<StageData> getStageDataList() {
         return new ArrayList<>(stageDataList);
+    }
+
+    @Override
+    public String getIconFileName() {
+        return null;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return null;
+    }
+
+    @Override
+    public String getUrlName() {
+        return null;
     }
 
     public static class StageData {

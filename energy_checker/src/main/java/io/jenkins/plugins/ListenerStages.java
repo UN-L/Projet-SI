@@ -1,9 +1,12 @@
 package io.jenkins.plugins;
 
 import hudson.Extension;
+import hudson.model.Run;
 import hudson.model.TaskListener;
 import org.jenkinsci.plugins.workflow.flow.GraphListener;
 import org.jenkinsci.plugins.workflow.graph.FlowNode;
+
+import java.io.IOException;
 
 @Extension
 public class ListenerStages implements GraphListener {
@@ -18,6 +21,16 @@ public class ListenerStages implements GraphListener {
     @Override
     public void onNewHead(FlowNode node) {
         if (node != null) {
+            Run<?, ?> run = null;
+            try {
+                run = (Run<?, ?>) node.getExecution().getOwner().getExecutable();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (run != null) {
+                run.addAction(new ValuesStageData());}
+
+
             String stageName = node.getDisplayName();
             double startTime = (System.currentTimeMillis() - timeStartOfClass) / 1000;
             double joulesConsumed = ScriptGetEnergeticValues.readRAPL() - joulesStartOfClass;
@@ -25,11 +38,14 @@ public class ListenerStages implements GraphListener {
                 double duration = startTime - startTimePrevious;
                 double deltaJoules = joulesConsumed - joulesConsumedPrevious;
                 double wattProvidedPrevious = deltaJoules / duration;
+
+                ValuesStageData action = run.getAction(ValuesStageData.class);
+
                 try {
                     TaskListener listener = node.getExecution().getOwner().getListener();
                     listener.getLogger().println("Stage '" + stageNamePrevious + "' lasted for " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
 
-                    ValuesStageData.getInstance().addStageData(stageNamePrevious, duration, deltaJoules, wattProvidedPrevious);
+                    action.addStageData(stageNamePrevious, duration, deltaJoules, wattProvidedPrevious);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

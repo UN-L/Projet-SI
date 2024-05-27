@@ -1,22 +1,18 @@
 package io.jenkins.plugins;
 
+import hudson.model.Action;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValuesExecutionData {
-    private static ValuesExecutionData instance;
+public class ValuesExecutionData implements Action {
     private List<PartData> partDataList;
 
-    private ValuesExecutionData() {
+    public ValuesExecutionData() {
         partDataList = new ArrayList<>();
     }
 
-    public static synchronized ValuesExecutionData getInstance() {
-        if (instance == null) {
-            instance = new ValuesExecutionData();
-        }
-        return instance;
-    }
 
     public void addPartData(double duration, double joulesConsumed, double wattsProvided) {
         partDataList.add(new PartData(duration, joulesConsumed, wattsProvided));
@@ -24,6 +20,21 @@ public class ValuesExecutionData {
 
     public List<PartData> getPartDataList() {
         return new ArrayList<>(partDataList);
+    }
+
+    @Override
+    public String getIconFileName() {
+        return null;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return null;
+    }
+
+    @Override
+    public String getUrlName() {
+        return null;
     }
 
     public static class PartData {

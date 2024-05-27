@@ -15,6 +15,8 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
     public void onInitialize(@NonNull Run<?, ?> run) {
         run.addAction(new VariablesConsumptionAction(
                 System.currentTimeMillis(), ScriptGetEnergeticValues.readRAPL()));
+        run.addAction(new ValuesStageData());
+        run.addAction(new ValuesExecutionData());
     }
 
     @Override

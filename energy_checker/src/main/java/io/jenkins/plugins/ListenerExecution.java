@@ -30,18 +30,6 @@ public class ListenerExecution extends FlowExecutionListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (run != null) {
-            run.addAction(new ValuesExecutionData());
-            try {
-                execution.getOwner().getListener().getLogger().println("run != null");
-            } catch (IOException e) {e.printStackTrace();}
-        } else {
-            try {
-                execution.getOwner().getListener().getLogger().println("run = null");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
         try {
             execution.getOwner().getListener().getLogger().println("----------------\nLaunching is running\n----------------");

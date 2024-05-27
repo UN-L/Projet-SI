@@ -34,9 +34,12 @@
 
                 var energyConsumptions = ${it.getEnergyHistoryAsJsonAll()};
                 var powerUsages = ${it.getPowerHistoryAsJsonAll()};
-                var stageData = ${it.getStageDataAsJson()};
-                var executionData = ${it.getExecutionDataAsJson()};
                 var allLabels = ${it.getLabelsAsJson()};
+
+                var stageData = ${it.getStageDataAsJson() != null ? it.getStageDataAsJson() : "[]"};
+                var executionData = ${it.getExecutionDataAsJson() != null ? it.getExecutionDataAsJson() : "[]"};
+
+
 
                 console.log("Energy Consumptions:", ${it.getEnergyHistoryAsJsonAll()});
                 console.log("Power Usages:", ${it.getPowerHistoryAsJsonAll()});

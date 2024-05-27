@@ -28,7 +28,8 @@ public class ListenerStages implements GraphListener {
                 throw new RuntimeException(e);
             }
             if (run != null) {
-                run.addAction(new ValuesStageData());}
+                //run.addAction(new ValuesStageData());
+            }
 
 
             String stageName = node.getDisplayName();

@@ -8,7 +8,7 @@
             <div class="navbar">
                 <div class="nav-item active" id="nav-builds">Builds</div>
                 <div class="nav-item" id="nav-stages">Stages</div>
-                <div class="nav-item" id="nav-execution">Execution</div>
+                <div class="nav-item" id="nav-execution">Evolution</div>
             </div>
             <div class="toggle-container">
                 <div class="toggle-button active" id="toggle-watt">Watt</div>
@@ -116,7 +116,7 @@
                         }
                         label = unit === 'watts' ? 'Power Used (Watts)' : 'Energy Consumed (Joules)';
                         type = 'line';
-                        title = 'Energetic Metrics During Execution';
+                        title = 'Energetic Metrics Evolution';
                     }
 
                     chart = new Chart(ctx, {

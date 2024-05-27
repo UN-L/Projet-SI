@@ -32,7 +32,7 @@ public class ListenerExecution extends FlowExecutionListener {
         }
 
         try {
-            execution.getOwner().getListener().getLogger().println("----------------\nLaunching is running\n----------------");
+            //execution.getOwner().getListener().getLogger().println("----------------\nLaunching is running\n----------------");
         }catch (Exception e){e.printStackTrace();}
         isRunning = true;
 
@@ -47,7 +47,7 @@ public class ListenerExecution extends FlowExecutionListener {
                 double wattProvidedPrevious = deltaJoules / duration;
                 try {
                     //execution.getOwner().getListener().getLogger().println("Running " + String.format("%.3f", duration) + " seconds, provided " + wattProvidedPrevious + " watts and consumed " + deltaJoules + " joules");
-                    execution.getOwner().getListener().getLogger().println("duration : " + duration + ", at time : " + System.currentTimeMillis());
+                    //execution.getOwner().getListener().getLogger().println("duration : " + duration + ", at time : " + System.currentTimeMillis());
                     action.addPartData(duration, deltaJoules, wattProvidedPrevious);
                 } catch (Exception e) {e.printStackTrace();}
 

@@ -22,11 +22,9 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
     @Override
     public void onStarted(Run<?, ?> run, TaskListener listener) {
         super.onStarted(run, listener);
-        listener.getLogger().println("Début de la surveillance de la consommation d'énergie. (onStarted)");
-        listener.getLogger()
-                .println("Temps à onInitialize() : "
-                        + run.getAction(VariablesConsumptionAction.class).getStartTime());
-        listener.getLogger().println("Temps actuel : " + System.currentTimeMillis());
+        listener.getLogger().println("Début de la surveillance de la énergétique.");
+        //listener.getLogger().println("Temps à onInitialize() : " + run.getAction(VariablesConsumptionAction.class).getStartTime());
+        //listener.getLogger().println("Temps actuel : " + System.currentTimeMillis());
     }
 
     @Override
@@ -37,13 +35,13 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
             double startTime = action.getStartTime();
             double startConsumption = action.getStartConsumption();
             double endTime = System.currentTimeMillis();
-            listener.getLogger().println("lauching lectureConsommation()");
+            //listener.getLogger().println("lauching readRAPL()");
             double endConsumption = ScriptGetEnergeticValues.readRAPL();
-            listener.getLogger().println("end of lectureConsommation()");
-            listener.getLogger().println("startTime = " + startTime);
-            listener.getLogger().println("startConsumption = " + startConsumption);
-            listener.getLogger().println("endTime = " + endTime);
-            listener.getLogger().println("endConsumption = " + endConsumption);
+            //listener.getLogger().println("end of lectureConsommation()");
+            //listener.getLogger().println("startTime = " + startTime);
+            //listener.getLogger().println("startConsumption = " + startConsumption);
+            //listener.getLogger().println("endTime = " + endTime);
+            //listener.getLogger().println("endConsumption = " + endConsumption);
             ValuesEnergetic energeticUsages = ScriptGetEnergeticValues.setEnergeticValues(
                     (endTime - startTime) / 1000, startConsumption, endConsumption);
             listener.getLogger()
@@ -53,8 +51,8 @@ public class ListenerRunEnergyMonitoring extends RunListener<Run<?, ?>> {
             action.setPowerUsed(energeticUsages.power);
             double previousBuildConsumption = getPreviousBuildEnergyConsumed(run);
             double previousBuildProvision = getPreviousBuildPowerProvided(run);
-            listener.getLogger().println("previousBuildConsumption = " + previousBuildConsumption);
-            listener.getLogger().println("previousBuildProvision = " + previousBuildProvision);
+            //listener.getLogger().println("previousBuildConsumption = " + previousBuildConsumption);
+            //listener.getLogger().println("previousBuildProvision = " + previousBuildProvision);
 
             List<Double> previousEnergies = getPreviousBuildsEnergy(run);
             List<Double> previousPowers = getPreviousBuildsPower(run);

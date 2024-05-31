@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     def my_pid = sh(script: 'my_command & echo $!', returnStdout: true).trim()
-                    writeFile file: 'pid.txt', text: my_pid
+                    writeFile file: 'pids.txt', text: my_pid
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
         stage('Loop over PIDs') {
             steps {
                 script {
-                    def pids = readFile('pid.txt').trim().split('\n')
+                    def pids = readFile('pids.txt').trim().split('\n')
 
                     for (pid in pids) {
                         echo "PID: $pid"

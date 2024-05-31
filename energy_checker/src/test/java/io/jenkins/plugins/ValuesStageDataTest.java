@@ -32,7 +32,6 @@ class ValuesStageDataTest {
         valuesStageData.addStageData("TestStage", 10.0, 100.0, 10.0);
         String json = valuesStageData.toJson();
         assertNotNull(json);
-        // Here you can add more assertions based on what you expect to see in the JSON output
         String expectedJson = "[{\"stageName\":\"TestStage\",\"duration\":10.0,\"joulesConsumed\":100.0,\"wattsProvided\":10.0}]";
         assertEquals(expectedJson, json);
     }
